@@ -19,8 +19,8 @@ class $AssetsDataGen {
   /// File path: assets/data/mydatabase.db
   String get mydatabase => 'assets/data/mydatabase.db';
 
-  /// File path: assets/data/mydatabase123.db
-  String get mydatabase123 => 'assets/data/mydatabase123.db';
+  /// File path: assets/data/mydatabase222.db
+  String get mydatabase222 => 'assets/data/mydatabase222.db';
 }
 
 class $AssetsImgGen {
