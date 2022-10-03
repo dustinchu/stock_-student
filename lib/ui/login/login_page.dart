@@ -10,6 +10,7 @@ import '../routes/route_path.dart';
 import 'components/check_box.dart';
 import 'login_view_model.dart';
 
+//登入頁面
 class LoginPage extends StatefulHookConsumerWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -22,6 +23,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
+      //如果有記住帳密的話 直接用帳密登入
       ref.read(loginViewModelProvider).isAccountData(context);
     });
   }
@@ -32,6 +34,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
     final state = ref.watch(loginViewModelProvider);
 
     // final viewModel = ref.watch(loginViewModelProvider.notifier);
+    //登入畫面ui
     final l10n = useL10n();
     return Scaffold(
       // backgroundColor: secondaryColor,

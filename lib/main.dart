@@ -10,6 +10,7 @@ import 'app.dart';
 // flutter run --no-sound-null-safety
 //打包apk
 //flutter build apk --release --no-sound-null-safety
+//程式入口點
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

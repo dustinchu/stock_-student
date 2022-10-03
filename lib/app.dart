@@ -6,16 +6,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'ui/routes/app_route.gr.dart';
 
+// flutter packages pub run build_runner build
 // c+p  Dart: Restart Analysis Server
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
-// flutter packages pub run build_runner build
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final themeMode = ref.watch(appThemeModeProvider);
     final appRouter = useMemoized(() => AppRouter());
-
+    //初始化 指向第一頁路由 設定app顏色
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       useInheritedMediaQuery: true,
