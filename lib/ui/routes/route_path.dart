@@ -10,4 +10,6 @@ class RoutePath {
   static const saveSelectPage = '/saveSelectPage';
   static const financeSearchPage = '/financeSearchPage';
   static const financePage = '/financePage';
+  static const comparePage = '/compare';
+  static const chartPage = '/chart';
 }

@@ -4,6 +4,8 @@ import 'package:flapp/ui/hot/hot_page.dart';
 import 'package:flapp/ui/login/login_page.dart';
 import 'package:flapp/ui/routes/route_path.dart';
 
+import '../compare/compare_detail_page.dart';
+import '../compare/compare_page.dart';
 import '../finance/finance_page.dart';
 import '../finance/search_stock_page.dart';
 import '../moor/moor_page.dart';
@@ -50,6 +52,14 @@ import '../stock_detail/stock_detail_page.dart';
     AutoRoute(
       path: RoutePath.financePage,
       page: FinancePage,
+    ),
+    AutoRoute(
+      path: RoutePath.comparePage,
+      page: ComparePage,
+    ),
+    AutoRoute(
+      path: RoutePath.chartPage,
+      page: CompareDetailPage,
     ),
   ],
 )

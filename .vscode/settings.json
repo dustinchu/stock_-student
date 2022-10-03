@@ -10,5 +10,6 @@
     ".packages": true,
     "yarn.lock": true,
     "pubspec.lock": true
-  }
+  },
+  "dart.flutterSdkPath": "/Users/user/Documents/flutter"
 }

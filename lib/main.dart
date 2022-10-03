@@ -6,6 +6,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'app.dart';
 
+//編譯器執行
+// flutter run --no-sound-null-safety
+//打包apk
+//flutter build apk --release --no-sound-null-safety
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

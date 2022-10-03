@@ -44,12 +44,15 @@ dependencies:
   #sqlite
   sqflite: ^2.0.2
   #stock chart
+  data_table_2: ^2.2.1
   k_chart:
     git:
       url: https://github.com/mafanwei/k_chart
   graphic: ^0.10.5
-  decimal: ^0.3.0
-
+  decimal: any
+  fl_chart: ^0.55.2
+  #keyboard
+  flutter_keyboard_visibility: ^5.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

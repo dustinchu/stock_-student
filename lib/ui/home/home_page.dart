@@ -97,8 +97,10 @@ class HomePage extends HookConsumerWidget {
                     isChangeColor: false),
                 btn(
                     iconData: Icons.all_inclusive_sharp,
-                    title: "2股比較",
-                    onTap: () {},
+                    title: "兩股比較",
+                    onTap: () {
+                      nextPage(context, const CompareRoute());
+                    },
                     isChangeColor: true)
               ],
             ),

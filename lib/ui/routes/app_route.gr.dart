@@ -8,7 +8,9 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flapp/ui/compare/compare_detail_page.dart' as _i11;
+import 'package:flapp/ui/compare/compare_page.dart' as _i10;
 import 'package:flapp/ui/finance/finance_page.dart' as _i9;
 import 'package:flapp/ui/finance/search_stock_page.dart' as _i8;
 import 'package:flapp/ui/home/home_page.dart' as _i5;
@@ -18,30 +20,30 @@ import 'package:flapp/ui/moor/moor_page.dart' as _i7;
 import 'package:flapp/ui/register/register_page.dart' as _i2;
 import 'package:flapp/ui/save_select/save_select_page.dart' as _i6;
 import 'package:flapp/ui/stock_detail/stock_detail_page.dart' as _i4;
-import 'package:flutter/cupertino.dart' as _i12;
-import 'package:flutter/material.dart' as _i11;
+import 'package:flutter/cupertino.dart' as _i14;
+import 'package:flutter/material.dart' as _i13;
 
-class AppRouter extends _i10.RootStackRouter {
-  AppRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
+class AppRouter extends _i12.RootStackRouter {
+  AppRouter([_i13.GlobalKey<_i13.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i10.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i1.LoginPage());
     },
     RegisterRoute.name: (routeData) {
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i2.RegisterPage());
     },
     HotRoute.name: (routeData) {
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i3.HotPage());
     },
     StockDetailRoute.name: (routeData) {
       final args = routeData.argsAs<StockDetailRouteArgs>();
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData,
           child: _i4.StockDetailPage(
               key: args.key,
@@ -56,50 +58,60 @@ class AppRouter extends _i10.RootStackRouter {
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData, child: _i5.HomePage(key: args.key));
     },
     SaveSelectRoute.name: (routeData) {
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i6.SaveSelectPage());
     },
     MoorRoute.name: (routeData) {
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i7.MoorPage());
     },
     SearchStockPag.name: (routeData) {
       final args = routeData.argsAs<SearchStockPagArgs>();
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData,
           child: _i8.SearchStockPag(key: args.key, pageRoute: args.pageRoute));
     },
     FinanceRoute.name: (routeData) {
       final args = routeData.argsAs<FinanceRouteArgs>();
-      return _i10.AdaptivePage<dynamic>(
+      return _i12.AdaptivePage<dynamic>(
           routeData: routeData,
           child: _i9.FinancePage(ts: args.ts, key: args.key));
+    },
+    CompareRoute.name: (routeData) {
+      return _i12.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i10.ComparePage());
+    },
+    CompareDetailRoute.name: (routeData) {
+      return _i12.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i11.CompareDetailPage());
     }
   };
 
   @override
-  List<_i10.RouteConfig> get routes => [
-        _i10.RouteConfig('/#redirect',
+  List<_i12.RouteConfig> get routes => [
+        _i12.RouteConfig('/#redirect',
             path: '/', redirectTo: '/login', fullMatch: true),
-        _i10.RouteConfig(LoginRoute.name, path: '/login'),
-        _i10.RouteConfig(RegisterRoute.name, path: '/register'),
-        _i10.RouteConfig(HotRoute.name, path: '/hot'),
-        _i10.RouteConfig(StockDetailRoute.name, path: '/stockDetailPage'),
-        _i10.RouteConfig(HomeRoute.name, path: '/home'),
-        _i10.RouteConfig(SaveSelectRoute.name, path: '/saveSelectPage'),
-        _i10.RouteConfig(MoorRoute.name, path: '/moor'),
-        _i10.RouteConfig(SearchStockPag.name, path: '/financeSearchPage'),
-        _i10.RouteConfig(FinanceRoute.name, path: '/financePage')
+        _i12.RouteConfig(LoginRoute.name, path: '/login'),
+        _i12.RouteConfig(RegisterRoute.name, path: '/register'),
+        _i12.RouteConfig(HotRoute.name, path: '/hot'),
+        _i12.RouteConfig(StockDetailRoute.name, path: '/stockDetailPage'),
+        _i12.RouteConfig(HomeRoute.name, path: '/home'),
+        _i12.RouteConfig(SaveSelectRoute.name, path: '/saveSelectPage'),
+        _i12.RouteConfig(MoorRoute.name, path: '/moor'),
+        _i12.RouteConfig(SearchStockPag.name, path: '/financeSearchPage'),
+        _i12.RouteConfig(FinanceRoute.name, path: '/financePage'),
+        _i12.RouteConfig(CompareRoute.name, path: '/compare'),
+        _i12.RouteConfig(CompareDetailRoute.name, path: '/chart')
       ];
 }
 
 /// generated route for
 /// [_i1.LoginPage]
-class LoginRoute extends _i10.PageRouteInfo<void> {
+class LoginRoute extends _i12.PageRouteInfo<void> {
   const LoginRoute() : super(LoginRoute.name, path: '/login');
 
   static const String name = 'LoginRoute';
@@ -107,7 +119,7 @@ class LoginRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.RegisterPage]
-class RegisterRoute extends _i10.PageRouteInfo<void> {
+class RegisterRoute extends _i12.PageRouteInfo<void> {
   const RegisterRoute() : super(RegisterRoute.name, path: '/register');
 
   static const String name = 'RegisterRoute';
@@ -115,7 +127,7 @@ class RegisterRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.HotPage]
-class HotRoute extends _i10.PageRouteInfo<void> {
+class HotRoute extends _i12.PageRouteInfo<void> {
   const HotRoute() : super(HotRoute.name, path: '/hot');
 
   static const String name = 'HotRoute';
@@ -123,9 +135,9 @@ class HotRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.StockDetailPage]
-class StockDetailRoute extends _i10.PageRouteInfo<StockDetailRouteArgs> {
+class StockDetailRoute extends _i12.PageRouteInfo<StockDetailRouteArgs> {
   StockDetailRoute(
-      {_i12.Key? key,
+      {_i14.Key? key,
       required String id,
       required String name,
       required String close,
@@ -159,7 +171,7 @@ class StockDetailRouteArgs {
       required this.amount,
       required this.date});
 
-  final _i12.Key? key;
+  final _i14.Key? key;
 
   final String id;
 
@@ -183,8 +195,8 @@ class StockDetailRouteArgs {
 
 /// generated route for
 /// [_i5.HomePage]
-class HomeRoute extends _i10.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({_i12.Key? key})
+class HomeRoute extends _i12.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({_i14.Key? key})
       : super(HomeRoute.name, path: '/home', args: HomeRouteArgs(key: key));
 
   static const String name = 'HomeRoute';
@@ -193,7 +205,7 @@ class HomeRoute extends _i10.PageRouteInfo<HomeRouteArgs> {
 class HomeRouteArgs {
   const HomeRouteArgs({this.key});
 
-  final _i12.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -203,7 +215,7 @@ class HomeRouteArgs {
 
 /// generated route for
 /// [_i6.SaveSelectPage]
-class SaveSelectRoute extends _i10.PageRouteInfo<void> {
+class SaveSelectRoute extends _i12.PageRouteInfo<void> {
   const SaveSelectRoute()
       : super(SaveSelectRoute.name, path: '/saveSelectPage');
 
@@ -212,7 +224,7 @@ class SaveSelectRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.MoorPage]
-class MoorRoute extends _i10.PageRouteInfo<void> {
+class MoorRoute extends _i12.PageRouteInfo<void> {
   const MoorRoute() : super(MoorRoute.name, path: '/moor');
 
   static const String name = 'MoorRoute';
@@ -220,8 +232,8 @@ class MoorRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.SearchStockPag]
-class SearchStockPag extends _i10.PageRouteInfo<SearchStockPagArgs> {
-  SearchStockPag({_i12.Key? key, required String pageRoute})
+class SearchStockPag extends _i12.PageRouteInfo<SearchStockPagArgs> {
+  SearchStockPag({_i14.Key? key, required String pageRoute})
       : super(SearchStockPag.name,
             path: '/financeSearchPage',
             args: SearchStockPagArgs(key: key, pageRoute: pageRoute));
@@ -232,7 +244,7 @@ class SearchStockPag extends _i10.PageRouteInfo<SearchStockPagArgs> {
 class SearchStockPagArgs {
   const SearchStockPagArgs({this.key, required this.pageRoute});
 
-  final _i12.Key? key;
+  final _i14.Key? key;
 
   final String pageRoute;
 
@@ -244,8 +256,8 @@ class SearchStockPagArgs {
 
 /// generated route for
 /// [_i9.FinancePage]
-class FinanceRoute extends _i10.PageRouteInfo<FinanceRouteArgs> {
-  FinanceRoute({required String ts, _i12.Key? key})
+class FinanceRoute extends _i12.PageRouteInfo<FinanceRouteArgs> {
+  FinanceRoute({required String ts, _i14.Key? key})
       : super(FinanceRoute.name,
             path: '/financePage', args: FinanceRouteArgs(ts: ts, key: key));
 
@@ -257,10 +269,26 @@ class FinanceRouteArgs {
 
   final String ts;
 
-  final _i12.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
     return 'FinanceRouteArgs{ts: $ts, key: $key}';
   }
+}
+
+/// generated route for
+/// [_i10.ComparePage]
+class CompareRoute extends _i12.PageRouteInfo<void> {
+  const CompareRoute() : super(CompareRoute.name, path: '/compare');
+
+  static const String name = 'CompareRoute';
+}
+
+/// generated route for
+/// [_i11.CompareDetailPage]
+class CompareDetailRoute extends _i12.PageRouteInfo<void> {
+  const CompareDetailRoute() : super(CompareDetailRoute.name, path: '/chart');
+
+  static const String name = 'CompareDetailRoute';
 }
