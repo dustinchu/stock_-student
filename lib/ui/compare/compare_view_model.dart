@@ -39,7 +39,10 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
 
   int titleType = 1;
   int bodyType1 = 1, bodyType2 = 1, bodyType3 = 1;
-  String sqlTableName = "ci", sqlTitleName = "nnor";
+  String sqlTableName = "ci",
+      sqlTitleName = "nnor",
+      detailTitleName = "三大報表",
+      detailBodyName = "營業收入";
   List<Map<String, Object?>> dbResult1 = [];
   List<Map<String, Object?>> dbResult2 = [];
   List<Map<String, Object?>> dbResult3 = [];
@@ -65,13 +68,24 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
   }
 
   List<DataColumn> getDataTable() {
+    print("save index ==$saveIndex");
     List<DataColumn> d = [];
     d.add(dColumn("股票代號"));
-    d.add(dColumn("股票名稱"));
-
-    for (Map<String, Object?> r in dbResult1) {
-      d.add(dColumn("${r["year"]}Q${r["month"]}"));
+    // d.add(dColumn("股票名稱"));
+    if (saveIndex == 1) {
+      d.add(dColumn(dbResult1[0]["ts"].toString()));
+    } else if (saveIndex == 2) {
+      d.add(dColumn(dbResult1[0]["ts"].toString()));
+      d.add(dColumn(dbResult2[0]["ts"].toString()));
+    } else if (saveIndex == 3) {
+      d.add(dColumn(dbResult1[0]["ts"].toString()));
+      d.add(dColumn(dbResult2[0]["ts"].toString()));
+      d.add(dColumn(dbResult3[0]["ts"].toString()));
     }
+
+    // for (Map<String, Object?> r in dbResult1) {
+    //   d.add(dColumn("${r["year"]}Q${r["month"]}"));
+    // }
     print("d len ===${d.length}");
     return d;
   }
@@ -80,16 +94,22 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     titleType = i ?? 1;
     switch (i) {
       case 1:
+        detailTitleName = "三大報表";
+        detailBodyName = "營業收入";
         sqlTableName = "ci";
         sqlTitleName = "nnor";
         bodyType1 = 1;
         break;
       case 2:
+        detailTitleName = "償債能力";
+        detailBodyName = "流動比率";
         sqlTableName = "solvency";
         sqlTitleName = "cr";
         bodyType2 = 1;
         break;
       case 3:
+        detailTitleName = "獲利能力";
+        detailBodyName = "毛利率";
         sqlTableName = "profitability";
         sqlTitleName = "gpm";
         bodyType3 = 1;
@@ -103,18 +123,23 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     bodyType1 = i ?? 1;
     switch (i) {
       case 1:
+        detailBodyName = "營業收入";
         sqlTitleName = "nnor";
         break;
       case 2:
+        detailBodyName = "營業毛利";
         sqlTitleName = "nop";
         break;
       case 3:
+        detailBodyName = "營業利益";
         sqlTitleName = "bi";
         break;
       case 4:
+        detailBodyName = "稅後純益";
         sqlTitleName = "pat";
         break;
       case 5:
+        detailBodyName = "每股盈餘";
         sqlTitleName = "eps";
         break;
     }
@@ -126,12 +151,15 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     bodyType2 = i ?? 1;
     switch (i) {
       case 1:
+        detailBodyName = "流動比率";
         sqlTitleName = "cr";
         break;
       case 2:
+        detailBodyName = "速動比率";
         sqlTitleName = "qr";
         break;
       case 3:
+        detailBodyName = "利息保障倍數";
         sqlTitleName = "dscr";
         break;
     }
@@ -142,18 +170,23 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     bodyType3 = i ?? 1;
     switch (i) {
       case 1:
+        detailBodyName = "毛利率";
         sqlTitleName = "gpm";
         break;
       case 2:
+        detailBodyName = "營業利益率";
         sqlTitleName = "om";
         break;
       case 3:
+        detailBodyName = "稅後純益率";
         sqlTitleName = "pm";
         break;
       case 4:
+        detailBodyName = "資產報酬率";
         sqlTitleName = "roa";
         break;
       case 5:
+        detailBodyName = "權益報酬率";
         sqlTitleName = "roe";
         break;
     }
@@ -217,8 +250,8 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
       sqlWhere = sqlWhere.substring(2, sqlWhere.length);
     }
     if (sqlWhere != "") {
-      print("sql code===${"$sql1 $sqlWhere order by ts , year,month"}");
-      stockList = await db.select("$sql1 $sqlWhere order by ts , year,month");
+      print("sql code===${"$sql1 $sqlWhere order  by ts , year desc "}");
+      stockList = await db.select("$sql1 $sqlWhere order by ts , year desc ");
     }
     print("stock list len ==${stockList.length}");
     //sqlit
@@ -256,7 +289,6 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
       }
     }
     print("result 1 ==$dbResult1");
-    print("$sql1 $sqlWhere order by ts , year,month");
     print(
         "save index ===$saveIndex  maxX ==$maxY  dbResult1 len ==${dbResult1.length}  dbResult2 len ===${dbResult2.length}  dbResult3 len ===${dbResult3.length}");
 

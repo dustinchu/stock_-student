@@ -35,28 +35,62 @@ class ComparePageState extends ConsumerState<CompareDetailPage> {
 
     List<DataCell> getDataCell(int index) {
       List<DataCell> result = [];
-
       if (index == 0) {
-        result.add(DataCell(Text(state.getTs(state.textController1.text))));
-        result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
-        for (Map<String, Object?> r in state.dbResult1) {
-          result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
+        result.add(DataCell(Text("股票名稱")));
+        if (state.saveIndex == 1) {
+          result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+        } else if (state.saveIndex == 2) {
+          result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+          result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
+        } else if (state.saveIndex == 3) {
+          result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+          result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
+          result.add(DataCell(Text(state.dbResult3[0]["name"].toString())));
+        }
+      } else {
+        result.add(DataCell(Text(
+            "${state.dbResult1[index]["year"].toString()}Q${state.dbResult1[index]["month"].toString()}")));
+        if (state.saveIndex == 1) {
+          result.add(DataCell(
+              Text(state.dbResult1[index][state.sqlTitleName].toString())));
+        } else if (state.saveIndex == 2) {
+          result.add(DataCell(
+              Text(state.dbResult1[index][state.sqlTitleName].toString())));
+          result.add(DataCell(
+              Text(state.dbResult2[index][state.sqlTitleName].toString())));
+        } else if (state.saveIndex == 3) {
+          result.add(DataCell(
+              Text(state.dbResult1[index][state.sqlTitleName].toString())));
+          result.add(DataCell(
+              Text(state.dbResult2[index][state.sqlTitleName].toString())));
+          result.add(DataCell(
+              Text(state.dbResult3[index][state.sqlTitleName].toString())));
         }
       }
-      if (index == 1) {
-        result.add(DataCell(Text(state.getTs(state.textController2.text))));
-        result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
-        for (Map<String, Object?> r in state.dbResult2) {
-          result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
-        }
-      }
-      if (index == 2) {
-        result.add(DataCell(Text(state.getTs(state.textController3.text))));
-        result.add(DataCell(Text(state.dbResult3[0]["name"].toString())));
-        for (Map<String, Object?> r in state.dbResult3) {
-          result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
-        }
-      }
+
+      // if (index == 0) {
+      //   print(
+      //       "cell   0 ===${state.textController1.text}   ${state.dbResult1[0]["name"].toString()}");
+      //   result.add(DataCell(Text(state.dbResult1[0]["ts"].toString())));
+      //   result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+      //   for (Map<String, Object?> r in state.dbResult1) {
+      //     result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
+      //   }
+      // }
+      // if (index == 1) {
+      //   result.add(DataCell(Text(state.dbResult2[0]["ts"].toString())));
+      //   result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
+      //   for (Map<String, Object?> r in state.dbResult2) {
+      //     result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
+      //   }
+      // }
+      // if (index == 2) {
+      //   result.add(DataCell(Text(state.dbResult3[0]["ts"].toString())));
+      //   result.add(DataCell(Text(state.dbResult3[0]["name"].toString())));
+      //   for (Map<String, Object?> r in state.dbResult3) {
+      //     result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
+      //   }
+      // }
       return result;
     }
 
@@ -64,18 +98,18 @@ class ComparePageState extends ConsumerState<CompareDetailPage> {
       return Padding(
         padding: const EdgeInsets.all(16),
         child: DataTable2(
-            columnSpacing: 12,
+            columnSpacing: state.saveIndex.toDouble(),
             horizontalMargin: 20,
-            minWidth: 3700,
+            minWidth: 200,
             columns: state.getDataTable(),
-            rows: List<DataRow>.generate(state.saveIndex,
-                (index) => DataRow(cells: getDataCell(index)))),
+            rows: List<DataRow>.generate(
+                36, (index) => DataRow(cells: getDataCell(index)))),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("兩股比較"),
+        title: Text("${state.detailTitleName} ${state.detailBodyName}"),
         centerTitle: true,
       ),
       body: Column(
@@ -97,10 +131,10 @@ class ComparePageState extends ConsumerState<CompareDetailPage> {
                         width: 10,
                       ),
                       Text(i == 0
-                          ? state.textController1.text
+                          ? "${state.dbResult1[0]["ts"].toString()} ${state.dbResult1[0]["name"].toString()}"
                           : i == 1
-                              ? state.textController2.text
-                              : state.textController3.text),
+                              ? "${state.dbResult2[0]["ts"].toString()} ${state.dbResult2[0]["name"].toString()}"
+                              : "${state.dbResult3[0]["ts"].toString()} ${state.dbResult3[0]["name"].toString()}"),
                       const SizedBox(
                         width: 10,
                       ),

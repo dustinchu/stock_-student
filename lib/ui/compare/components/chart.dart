@@ -81,24 +81,24 @@ class _LineChart extends HookConsumerWidget {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 60,
-            // getTitlesWidget: (value, meta) {
-            //   Widget axisTitle = Text(
-            //     value > 1000 || value < -1000
-            //         ? (value / 1000).toInt().toString() + "K"
-            //         : value.toString(),
-            //     style:
-            //         TextStyle(fontSize: value.toString().length > 4 ? 12 : 14),
-            //   );
+            getTitlesWidget: (value, meta) {
+              Widget axisTitle = Text(
+                value > 1000 || value < -1000
+                    ? (value / 1000).toInt().toString() + "K"
+                    : value.toString(),
+                style:
+                    TextStyle(fontSize: value.toString().length > 4 ? 12 : 14),
+              );
 
-            //   // A workaround to hide the max value title as FLChart is overlapping it on top of previous
-            //   if (value == meta.max || value == meta.min) {
-            //     final remainder = value % meta.appliedInterval;
-            //     if (remainder != 0.0 && remainder / meta.appliedInterval < 1) {
-            //       axisTitle = const SizedBox.shrink();
-            //     }
-            //   }
-            //   return SideTitleWidget(axisSide: meta.axisSide, child: axisTitle);
-            // },
+              // A workaround to hide the max value title as FLChart is overlapping it on top of previous
+              if (value == meta.max || value == meta.min) {
+                final remainder = value % meta.appliedInterval;
+                if (remainder != 0.0 && remainder / meta.appliedInterval < 1) {
+                  axisTitle = const SizedBox.shrink();
+                }
+              }
+              return SideTitleWidget(axisSide: meta.axisSide, child: axisTitle);
+            },
           ),
         ),
         bottomTitles: AxisTitles(

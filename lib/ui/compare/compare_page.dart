@@ -151,7 +151,7 @@ class ComparePageState extends ConsumerState<ComparePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("兩股比較"),
+        title: Text("多股比較"),
         centerTitle: true,
       ),
       body: Container(
@@ -168,15 +168,28 @@ class ComparePageState extends ConsumerState<ComparePage> {
             Column(
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    radioTitle(1),
-                    const Text("三大報表"),
-                    radioTitle(2),
-                    const Text("償債能力"),
-                    radioTitle(3),
-                    const Text("獲利能力"),
-                    radioTitle(4),
-                    const Text("股利"),
+                    Row(
+                      children: [
+                        radioTitle(1),
+                        const Text("三大報表"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        radioTitle(2),
+                        const Text("償債能力"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        radioTitle(3),
+                        const Text("獲利能力"),
+                      ],
+                    ),
+                    // radioTitle(4),
+                    // const Text("股利"),
                   ],
                 ),
                 const Divider(

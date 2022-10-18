@@ -97,12 +97,12 @@ class HomePage extends HookConsumerWidget {
                     },
                     isChangeColor: false),
                 btn(
-                    iconData: Icons.all_inclusive_sharp,
-                    title: "兩股比較",
+                    iconData: Icons.search,
+                    title: "自選股",
                     onTap: () {
-                      nextPage(context, const CompareRoute());
+                      nextPage(context, const SaveSelectRoute());
                     },
-                    isChangeColor: true)
+                    isChangeColor: true),
               ],
             ),
             SizedBox(
@@ -119,6 +119,13 @@ class HomePage extends HookConsumerWidget {
                     },
                     isChangeColor: false),
                 btn(
+                    iconData: Icons.all_inclusive_sharp,
+                    title: "多股比較",
+                    onTap: () {
+                      nextPage(context, const CompareRoute());
+                    },
+                    isChangeColor: true),
+                btn(
                     iconData: User.instance.isAccountLogin
                         ? Icons.logout_outlined
                         : Icons.login_outlined,
@@ -128,13 +135,6 @@ class HomePage extends HookConsumerWidget {
                       nextUntilPage(context, const LoginRoute());
                     },
                     isChangeColor: false),
-                btn(
-                    iconData: Icons.search,
-                    title: "自選股",
-                    onTap: () {
-                      nextPage(context, const SaveSelectRoute());
-                    },
-                    isChangeColor: true)
               ],
             )
           ],
