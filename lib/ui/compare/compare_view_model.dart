@@ -41,7 +41,7 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
   int bodyType1 = 1, bodyType2 = 1, bodyType3 = 1;
   String sqlTableName = "ci",
       sqlTitleName = "nnor",
-      detailTitleName = "三大報表",
+      detailTitleName = "綜合損益表",
       detailBodyName = "營業收入";
   List<Map<String, Object?>> dbResult1 = [];
   List<Map<String, Object?>> dbResult2 = [];
@@ -54,8 +54,8 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     textController3.text = "";
     sqlTableName = "ci";
     sqlTitleName = "nnor";
-    bodyType1 = 1;
-    titleType = 1;
+    bodyType1 = 999;
+    titleType = 999;
 
     notifyListeners();
   }
@@ -70,17 +70,23 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
   List<DataColumn> getDataTable() {
     print("save index ==$saveIndex");
     List<DataColumn> d = [];
-    d.add(dColumn("股票代號"));
+    d.add(dColumn("股票代號\n股票名稱"));
     // d.add(dColumn("股票名稱"));
     if (saveIndex == 1) {
-      d.add(dColumn(dbResult1[0]["ts"].toString()));
+      d.add(dColumn(
+          "${dbResult1[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
     } else if (saveIndex == 2) {
-      d.add(dColumn(dbResult1[0]["ts"].toString()));
-      d.add(dColumn(dbResult2[0]["ts"].toString()));
+      d.add(dColumn(
+          "${dbResult1[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
+      d.add(dColumn(
+          "${dbResult2[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
     } else if (saveIndex == 3) {
-      d.add(dColumn(dbResult1[0]["ts"].toString()));
-      d.add(dColumn(dbResult2[0]["ts"].toString()));
-      d.add(dColumn(dbResult3[0]["ts"].toString()));
+      d.add(dColumn(
+          "${dbResult1[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
+      d.add(dColumn(
+          "${dbResult2[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
+      d.add(dColumn(
+          "${dbResult3[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
     }
 
     // for (Map<String, Object?> r in dbResult1) {
@@ -94,7 +100,7 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     titleType = i ?? 1;
     switch (i) {
       case 1:
-        detailTitleName = "三大報表";
+        detailTitleName = "綜合損益表";
         detailBodyName = "營業收入";
         sqlTableName = "ci";
         sqlTitleName = "nnor";

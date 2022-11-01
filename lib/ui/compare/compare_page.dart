@@ -48,8 +48,9 @@ class ComparePageState extends ConsumerState<ComparePage> {
       );
     }
 
-    Widget radio1(String text, int value) {
-      return Row(
+    Widget radio1(String text, int value, IconData iconData) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Radio(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -57,13 +58,18 @@ class ComparePageState extends ConsumerState<ComparePage> {
             onChanged: state.changeBodyType1,
             groupValue: state.bodyType1,
           ),
-          Text(text),
+          Text(text), Icon(iconData)
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [Text(text), Icon(iconData)],
+          // ),
         ],
       );
     }
 
-    Widget radio2(String text, int value) {
-      return Row(
+    Widget radio2(String text, int value, IconData iconData) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Radio(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -72,12 +78,14 @@ class ComparePageState extends ConsumerState<ComparePage> {
             groupValue: state.bodyType2,
           ),
           Text(text),
+          Icon(iconData)
         ],
       );
     }
 
-    Widget radio3(String text, int value) {
-      return Row(
+    Widget radio3(String text, int value, IconData iconData) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Radio(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -86,6 +94,7 @@ class ComparePageState extends ConsumerState<ComparePage> {
             groupValue: state.bodyType3,
           ),
           Text(text),
+          Icon(iconData)
         ],
       );
     }
@@ -96,16 +105,16 @@ class ComparePageState extends ConsumerState<ComparePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              radio1("營業收入", 1),
-              radio1("營業毛利", 2),
-              radio1("營業利益", 3),
+              radio1("營業收入", 1, Icons.currency_exchange),
+              radio1("營業毛利", 2, Icons.inventory),
+              radio1("營業利益", 3, Icons.stacked_bar_chart),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              radio1("稅後純益", 4),
-              radio1("每股盈餘", 5),
+              radio1("稅後純益", 4, Icons.assured_workload),
+              radio1("每股盈餘", 5, Icons.insights),
             ],
           ),
         ],
@@ -118,9 +127,9 @@ class ComparePageState extends ConsumerState<ComparePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              radio2("流動比率", 1),
-              radio2("速動比率", 2),
-              radio2("利息保障倍數", 3),
+              radio2("流動比率", 1, Icons.alarm_on),
+              radio2("速動比率", 2, Icons.history_toggle_off),
+              radio2("利息保障倍數", 3, Icons.settings_ethernet),
             ],
           ),
         ],
@@ -133,16 +142,16 @@ class ComparePageState extends ConsumerState<ComparePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              radio3("毛利率", 1),
-              radio3("營業利益率", 2),
-              radio3("稅後純益率", 3),
+              radio3("毛利率", 1, Icons.blur_circular),
+              radio3("營業利益率", 2, Icons.looks),
+              radio3("稅後純益率", 3, Icons.app_registration),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              radio3("資產報酬率", 4),
-              radio3("權益報酬率", 5),
+              radio3("資產報酬率", 4, Icons.import_contacts),
+              radio3("權益報酬率", 5, Icons.voicemail),
             ],
           ),
         ],
@@ -173,7 +182,7 @@ class ComparePageState extends ConsumerState<ComparePage> {
                     Row(
                       children: [
                         radioTitle(1),
-                        const Text("三大報表"),
+                        const Text("綜合損益表"),
                       ],
                     ),
                     Row(
@@ -199,49 +208,56 @@ class ComparePageState extends ConsumerState<ComparePage> {
                     ? bodyRadio1()
                     : state.titleType == 2
                         ? bodyRadio2()
-                        : bodyRadio3()
+                        : state.titleType == 3
+                            ? bodyRadio3()
+                            : Container()
               ],
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  fieldWidget(controller: state.textController1),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  fieldWidget(controller: state.textController2),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  fieldWidget(controller: state.textController3),
-                  const SizedBox(
-                    height: 80,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () async {
-                        if (state.textController1.text != "" ||
-                            state.textController2.text != "" ||
-                            state.textController3.text != "") {
-                          await state.selectCompareResult();
-                          AutoRouter.of(context)
-                              .push(const CompareDetailRoute());
-                        }
-                        // print(
-                        //     "table ===${state.sqlTableName} titleName  ==${state.sqlTitleName}");
-                        // AutoRouter.of(context).push(const CompareDetailRoute());
-                      },
-                      child: const Text(
-                        '開始比較',
-                        style: TextStyle(color: Colors.white),
-                      ),
+            (state.titleType != 999)
+                ? Expanded(
+                    child: ListView(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 100,
+                        ),
+                        fieldWidget(controller: state.textController1),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        fieldWidget(controller: state.textController2),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        fieldWidget(controller: state.textController3),
+                        const SizedBox(
+                          height: 80,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton(
+                            onPressed: () async {
+                              if (state.textController1.text != "" ||
+                                  state.textController2.text != "" ||
+                                  state.textController3.text != "") {
+                                await state.selectCompareResult();
+                                AutoRouter.of(context)
+                                    .push(const CompareDetailRoute());
+                              }
+                              // print(
+                              //     "table ===${state.sqlTableName} titleName  ==${state.sqlTitleName}");
+                              // AutoRouter.of(context).push(const CompareDetailRoute());
+                            },
+                            child: const Text(
+                              '開始比較',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            )
+                  )
+                : Container()
           ],
         ),
       ),

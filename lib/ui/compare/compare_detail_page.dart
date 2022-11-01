@@ -30,67 +30,54 @@ class ComparePageState extends ConsumerState<CompareDetailPage> {
         var format = NumberFormat('0,000');
         return format.format(double.parse(s));
       }
+
       return s;
+    }
+
+    String deleteZero(String text) {
+      String d = text.substring(text.length - 2);
+      if (d == ".0") {
+        return isInt(text.substring(0, text.length - 2));
+      } else {
+        return isInt(text);
+      }
     }
 
     List<DataCell> getDataCell(int index) {
       List<DataCell> result = [];
-      if (index == 0) {
-        result.add(DataCell(Text("股票名稱")));
-        if (state.saveIndex == 1) {
-          result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
-        } else if (state.saveIndex == 2) {
-          result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
-          result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
-        } else if (state.saveIndex == 3) {
-          result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
-          result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
-          result.add(DataCell(Text(state.dbResult3[0]["name"].toString())));
-        }
-      } else {
-        result.add(DataCell(Text(
-            "${state.dbResult1[index]["year"].toString()}Q${state.dbResult1[index]["month"].toString()}")));
-        if (state.saveIndex == 1) {
-          result.add(DataCell(
-              Text(state.dbResult1[index][state.sqlTitleName].toString())));
-        } else if (state.saveIndex == 2) {
-          result.add(DataCell(
-              Text(state.dbResult1[index][state.sqlTitleName].toString())));
-          result.add(DataCell(
-              Text(state.dbResult2[index][state.sqlTitleName].toString())));
-        } else if (state.saveIndex == 3) {
-          result.add(DataCell(
-              Text(state.dbResult1[index][state.sqlTitleName].toString())));
-          result.add(DataCell(
-              Text(state.dbResult2[index][state.sqlTitleName].toString())));
-          result.add(DataCell(
-              Text(state.dbResult3[index][state.sqlTitleName].toString())));
-        }
-      }
-
       // if (index == 0) {
-      //   print(
-      //       "cell   0 ===${state.textController1.text}   ${state.dbResult1[0]["name"].toString()}");
-      //   result.add(DataCell(Text(state.dbResult1[0]["ts"].toString())));
-      //   result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
-      //   for (Map<String, Object?> r in state.dbResult1) {
-      //     result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
+      //   result.add(DataCell(Text("股票名稱")));
+      //   if (state.saveIndex == 1) {
+      //     result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+      //   } else if (state.saveIndex == 2) {
+      //     result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+      //     result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
+      //   } else if (state.saveIndex == 3) {
+      //     result.add(DataCell(Text(state.dbResult1[0]["name"].toString())));
+      //     result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
+      //     result.add(DataCell(Text(state.dbResult3[0]["name"].toString())));
       //   }
+      // } else {
+      result.add(DataCell(Text(
+          "${state.dbResult1[index]["year"].toString()}Q${state.dbResult1[index]["month"].toString()}")));
+      if (state.saveIndex == 1) {
+        result.add(DataCell(Text(deleteZero(
+            state.dbResult1[index][state.sqlTitleName].toString()))));
+      } else if (state.saveIndex == 2) {
+        result.add(DataCell(Text(deleteZero(
+            state.dbResult1[index][state.sqlTitleName].toString()))));
+        result.add(DataCell(Text(deleteZero(
+            state.dbResult2[index][state.sqlTitleName].toString()))));
+      } else if (state.saveIndex == 3) {
+        result.add(DataCell(Text(deleteZero(
+            state.dbResult1[index][state.sqlTitleName].toString()))));
+        result.add(DataCell(Text(deleteZero(
+            state.dbResult2[index][state.sqlTitleName].toString()))));
+        result.add(DataCell(Text(deleteZero(
+            state.dbResult3[index][state.sqlTitleName].toString()))));
+      }
       // }
-      // if (index == 1) {
-      //   result.add(DataCell(Text(state.dbResult2[0]["ts"].toString())));
-      //   result.add(DataCell(Text(state.dbResult2[0]["name"].toString())));
-      //   for (Map<String, Object?> r in state.dbResult2) {
-      //     result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
-      //   }
-      // }
-      // if (index == 2) {
-      //   result.add(DataCell(Text(state.dbResult3[0]["ts"].toString())));
-      //   result.add(DataCell(Text(state.dbResult3[0]["name"].toString())));
-      //   for (Map<String, Object?> r in state.dbResult3) {
-      //     result.add(DataCell(Text(isInt(r[state.sqlTitleName].toString()))));
-      //   }
-      // }
+
       return result;
     }
 
@@ -109,7 +96,8 @@ class ComparePageState extends ConsumerState<CompareDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${state.detailTitleName} ${state.detailBodyName}"),
+        title: Text(
+            "${state.detailTitleName} ${state.detailBodyName} ${state.titleType == 1 ? "(千)" : ""}"),
         centerTitle: true,
       ),
       body: Column(

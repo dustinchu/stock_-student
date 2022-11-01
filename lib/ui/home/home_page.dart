@@ -16,7 +16,7 @@ class HomePage extends HookConsumerWidget {
   HomePage({Key? key}) : super(key: key);
 
   Widget btn({
-    required IconData iconData,
+    required String imgPath,
     required String title,
     required VoidCallback onTap,
     required bool isChangeColor,
@@ -50,8 +50,9 @@ class HomePage extends HookConsumerWidget {
                     borderRadius: BorderRadius.all(Radius.circular(1000))),
               ),
               onPressed: onTap,
-              child: Icon(
-                iconData,
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Image.asset(imgPath),
               )),
         ),
       ],
@@ -83,21 +84,21 @@ class HomePage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 btn(
-                    iconData: Icons.attach_money_outlined,
+                    imgPath: "assets/icon/finance.png",
                     title: "財務狀況",
                     onTap: () {
                       nextPage(context, SearchStockPag(pageRoute: "finance"));
                     },
                     isChangeColor: true),
                 btn(
-                    iconData: Icons.trending_up_rounded,
+                    imgPath: "assets/icon/hot.png",
                     title: "熱門排行",
                     onTap: () {
                       nextPage(context, const HotRoute());
                     },
                     isChangeColor: false),
                 btn(
-                    iconData: Icons.search,
+                    imgPath: "assets/icon/choose.png",
                     title: "自選股",
                     onTap: () {
                       nextPage(context, const SaveSelectRoute());
@@ -112,23 +113,24 @@ class HomePage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 btn(
-                    iconData: Icons.add_chart_rounded,
+                    imgPath: "assets/icon/listed.png",
                     title: "上市股票",
                     onTap: () {
                       nextPage(context, SearchStockPag(pageRoute: "stock"));
                     },
                     isChangeColor: false),
                 btn(
-                    iconData: Icons.all_inclusive_sharp,
+                    imgPath: "assets/icon/compare.png",
                     title: "多股比較",
                     onTap: () {
                       nextPage(context, const CompareRoute());
                     },
                     isChangeColor: true),
                 btn(
-                    iconData: User.instance.isAccountLogin
-                        ? Icons.logout_outlined
-                        : Icons.login_outlined,
+                    imgPath: "assets/icon/member.png",
+                    // iconData: User.instance.isAccountLogin
+                    //     ? Icons.logout_outlined
+                    //     : Icons.login_outlined,
                     title: User.instance.isAccountLogin ? "會員登出" : "會員登入",
                     onTap: () {
                       perferences.removeAccount();

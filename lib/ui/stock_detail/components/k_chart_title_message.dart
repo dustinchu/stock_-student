@@ -30,7 +30,7 @@ class KChartTitleMessage extends HookConsumerWidget {
     Widget widgetCommonHeight(Widget _child) {
       return Container(
         alignment: Alignment.center,
-        height: 30,
+        height: 35,
         child: _child,
       );
     }
@@ -48,6 +48,14 @@ class KChartTitleMessage extends HookConsumerWidget {
     var dt = DateTime.fromMillisecondsSinceEpoch(int.parse(date) * 1000);
 
     var d = DateFormat('yyyy/MM/dd').format(dt);
+    String deleteZero(String text) {
+      String d = text.substring(text.length - 2);
+      if (d == ".0") {
+        return text.substring(0, text.length - 2);
+      } else {
+        return text;
+      }
+    }
 
     return SafeArea(
       child: Container(
@@ -124,7 +132,7 @@ class KChartTitleMessage extends HookConsumerWidget {
                           ],
                         ),
                         Text(
-                          "總量:  $amount",
+                          "總量:  ${deleteZero(amount)}",
                           style: theme.textTheme.h10.copyWith(height: 1.0),
                         )
                       ],
