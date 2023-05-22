@@ -34,7 +34,7 @@ class FinanceViewModel extends ChangeNotifier with LoggerMixin {
   TextEditingController textEditingController = TextEditingController();
   init(String ts) async {
     stockList =
-        await db.select("SELECT * FROM finance where id=2021 and ts=$ts; ");
+        await db.select("SELECT * FROM finance where id=2022 and ts=$ts; ");
     notifyListeners();
   }
 

@@ -111,6 +111,7 @@ class FinancePageState extends ConsumerState<FinancePage> {
   }
 
   List<DropdownMenuItem<String>> subrouteNameMenuItems = const [
+    DropdownMenuItem(value: '2022', child: Text('2022')),
     DropdownMenuItem(value: '2021', child: Text('2021')),
     DropdownMenuItem(value: '2020', child: Text('2020')),
     DropdownMenuItem(value: '2019', child: Text('2019')),
@@ -121,7 +122,7 @@ class FinancePageState extends ConsumerState<FinancePage> {
     DropdownMenuItem(value: '2014', child: Text('2014')),
     DropdownMenuItem(value: '2013', child: Text('2013')),
   ];
-  String selectedSort = '2021';
+  String selectedSort = '2022';
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(appThemeProvider);
@@ -167,12 +168,12 @@ class FinancePageState extends ConsumerState<FinancePage> {
 
     Widget msg(String l, String r, String s) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: Row(children: [
-          Expanded(child: Text(l, style: theme.textTheme.h40)),
+          Expanded(flex: 2, child: Text(l, style: TextStyle(fontSize: 20))),
           Expanded(
               child: Text(state.stockList[0][r].toString() + s,
-                  style: theme.textTheme.h40))
+                  style: TextStyle(fontSize: 20)))
         ]),
       );
     }
@@ -186,29 +187,30 @@ class FinancePageState extends ConsumerState<FinancePage> {
         padding: EdgeInsets.symmetric(horizontal: 2.h),
         child: Column(
           children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 2.h),
-                        child: Text(
-                          "${state.stockList.isEmpty ? "" : state.stockList[0]["name"]}  ${state.stockList.isEmpty ? "" : state.stockList[0]["ts"]}\n近期財報 ${state.stockList.isEmpty ? "2021" : state.stockList[0]["id"]}",
-                          style: theme.textTheme.h40,
-                        ),
-                      ),
-                      DropdownButton(
-                          value: state.stockList.isEmpty
-                              ? "2021"
-                              : state.stockList[0]["id"],
-                          items: subrouteNameMenuItems,
-                          onChanged: (v) {
-                            state.selectYear(widget.ts, v.toString());
-                          }),
-                    ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 2.h),
+                  child: Text(
+                    "${state.stockList.isEmpty ? "" : state.stockList[0]["name"]}  ${state.stockList.isEmpty ? "" : state.stockList[0]["ts"]}\n近期財報 ${state.stockList.isEmpty ? "2021" : state.stockList[0]["id"]}",
+                    style: theme.textTheme.h40,
                   ),
+                ),
+                DropdownButton(
+                    value: state.stockList.isEmpty
+                        ? "2022"
+                        : state.stockList[0]["id"],
+                    items: subrouteNameMenuItems,
+                    onChanged: (v) {
+                      state.selectYear(widget.ts, v.toString());
+                    }),
+              ],
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   state.stockList.isEmpty
                       ? Container()
                       : Column(
@@ -235,15 +237,8 @@ class FinancePageState extends ConsumerState<FinancePage> {
                             SizedBox(height: 1.h),
                           ],
                         ),
-
-                  //   for (List<String> item in rowData)
-                  //     rowWidget(
-                  //         item[1].startsWith("2022"), item[0], item[1], item[2])
                 ],
               ),
-            ),
-            SizedBox(
-              height: 5.h,
             )
           ],
         ),

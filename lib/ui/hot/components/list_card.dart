@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flapp/common/util/random.dart';
 import 'package:flapp/ui/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -94,18 +95,24 @@ class ListCard extends HookConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "單量 ",
-              style: theme.textTheme.h10.copyWith(color: Colors.white54),
-            ),
-            Text(
-              body,
-              style: theme.textTheme.h10.copyWith(),
-            ),
             SizedBox(
-              width: 0.5.w,
+              width: 25.w,
+              child: Row(
+                children: [
+                  Text(
+                    "單量 ",
+                    style: theme.textTheme.h10.copyWith(color: Colors.white54),
+                  ),
+                  Text(
+                    body,
+                    style: theme.textTheme.h10.copyWith(),
+                  ),
+                ],
+              ),
             ),
-            Expanded(
+            Spacer(),
+            SizedBox(
+              width: 7.w,
               child: PercentageRow(
                 percentages: percentage,
                 children: [
@@ -129,6 +136,7 @@ class ListCard extends HookConsumerWidget {
 
     double widgetWidth = (w - 5.w - 70) / 3;
     double widgetWidth2 = (w - 5.w - 70) / 4;
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
       child: Column(
@@ -147,8 +155,10 @@ class ListCard extends HookConsumerWidget {
               : Container(),
           Expanded(
             child: ListView.separated(
-              itemCount: state.stockList.length,
+              itemCount: state.stockList == null ? 0 : state.stockList.length,
               itemBuilder: (context, index) {
+                double percentageValue = getDoubleRandom();
+                if (percentageValue == 0.0) percentageValue = 0.1;
                 return InkWell(
                   // onTap: () =>
                   //     AutoRouter.of(context).pushNamed(RoutePath.stockDetailPage),
@@ -159,7 +169,8 @@ class ListCard extends HookConsumerWidget {
                       AutoRouter.of(context).push(FinanceRoute(
                           ts: state.stockList[index]["ts"].toString()));
                     } else {
-                      state.nextDetailSelect("SELECT * FROM k$ts ");
+                      state.nextDetailSelect(
+                          "SELECT * FROM k$ts order by id desc");
                       AutoRouter.of(context).push(StockDetailRoute(
                           id: ts,
                           name: state.stockList[index]["name"].toString(),
@@ -187,9 +198,7 @@ class ListCard extends HookConsumerWidget {
                         state.stockList[index]["ts"].toString()),
                     row2(
                         widgetWidth2 + 30,
-                        getFormatStepCount(
-                                state.stockList[index]["close"].toString())
-                            .toString(),
+                        state.stockList[index]["close"].toString(),
                         getFormatStepCount(
                                 state.stockList[index]["amount"].toString())
                             .toString(),
@@ -202,7 +211,7 @@ class ListCard extends HookConsumerWidget {
                                     ["one_quantity"]
                                 .toString())
                             .toString(),
-                        [0.3, 0.7],
+                        [0.7, 0.3],
                         double.parse(state.stockList[index]["vo"].toString()) >
                             0),
                     Spacer(),

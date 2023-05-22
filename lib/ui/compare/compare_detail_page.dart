@@ -61,20 +61,32 @@ class ComparePageState extends ConsumerState<CompareDetailPage> {
       result.add(DataCell(Text(
           "${state.dbResult1[index]["year"].toString()}Q${state.dbResult1[index]["month"].toString()}")));
       if (state.saveIndex == 1) {
-        result.add(DataCell(Text(deleteZero(
-            state.dbResult1[index][state.sqlTitleName].toString()))));
+        result.add(DataCell(Text(
+          deleteZero(state.dbResult1[index][state.sqlTitleName].toString()),
+          style: TextStyle(fontSize: 12),
+        )));
       } else if (state.saveIndex == 2) {
-        result.add(DataCell(Text(deleteZero(
-            state.dbResult1[index][state.sqlTitleName].toString()))));
-        result.add(DataCell(Text(deleteZero(
-            state.dbResult2[index][state.sqlTitleName].toString()))));
+        result.add(DataCell(Text(
+          deleteZero(state.dbResult1[index][state.sqlTitleName].toString()),
+          style: TextStyle(fontSize: 12),
+        )));
+        result.add(DataCell(Text(
+          deleteZero(state.dbResult2[index][state.sqlTitleName].toString()),
+          style: TextStyle(fontSize: 12),
+        )));
       } else if (state.saveIndex == 3) {
-        result.add(DataCell(Text(deleteZero(
-            state.dbResult1[index][state.sqlTitleName].toString()))));
-        result.add(DataCell(Text(deleteZero(
-            state.dbResult2[index][state.sqlTitleName].toString()))));
-        result.add(DataCell(Text(deleteZero(
-            state.dbResult3[index][state.sqlTitleName].toString()))));
+        result.add(DataCell(Text(
+          deleteZero(state.dbResult1[index][state.sqlTitleName].toString()),
+          style: TextStyle(fontSize: 12),
+        )));
+        result.add(DataCell(Text(
+          deleteZero(state.dbResult2[index][state.sqlTitleName].toString()),
+          style: TextStyle(fontSize: 12),
+        )));
+        result.add(DataCell(Text(
+          deleteZero(state.dbResult3[index][state.sqlTitleName].toString()),
+          style: TextStyle(fontSize: 12),
+        )));
       }
       // }
 

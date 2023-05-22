@@ -44,7 +44,7 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
     textEditingController.addListener(() async {
       if (textEditingController.text == "") {
         if (pageRoute == "" || pageRoute == "stock") {
-          saveSqlCode = "select * from home  where id =1640793600 ";
+          saveSqlCode = "select * from home  where id =1672329600 ";
           stockList = await db.select(saveSqlCode);
           hotStatus = HotStatus.success;
           print("saveSqlcode ==$saveSqlCode");
@@ -56,7 +56,7 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
         notifyListeners();
       } else {
         saveSqlCode =
-            "select * from home where   id =1640793600  and  ts LIKE  '%${textEditingController.text}%'  ";
+            "select * from home where   id =1672329600  and  ts LIKE  '%${textEditingController.text}%'  ";
         stockList = await db.select(saveSqlCode);
         hotStatus = HotStatus.success;
         print("saveSqlcode ==$saveSqlCode");
@@ -83,6 +83,7 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
   }
 
   selectDate(DateTime dt) async {
+    print("dt==${dt.toString()}");
     int d = (dt.microsecondsSinceEpoch / 1000000).toInt();
     textEditingController.text = "";
     String sqlCode = "";
@@ -100,7 +101,7 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
         break;
     }
     stockList = await db.select(sqlCode);
-
+    print("-----------------sql Code------$sqlCode");
     var date = DateTime.fromMillisecondsSinceEpoch(
         int.parse(stockList[0]["id"].toString()) * 1000);
     var hotDt = DateFormat('yyyy-MM-dd').format(date);
@@ -121,11 +122,12 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
     textEditingController.text = "";
 
     stockList = await db.select(sqlCode);
-
+    print("-----------${stockList[0]}---- sql Code ==$sqlCode");
     var date = DateTime.fromMillisecondsSinceEpoch(
         int.parse(stockList[0]["id"].toString()) * 1000);
     var dt = DateFormat('yyyy-MM-dd').format(date);
     hotDate = dt;
+    print("-----date ==$date  dt ===$dt");
     hotStatus = HotStatus.success;
     notifyListeners();
   }
@@ -155,7 +157,7 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
         case 0:
           print("sqlcode==$saveSqlCode");
           if (saveSqlCode == "") {
-            sqlCode = "select * from home   where id =1640793600 ";
+            sqlCode = "select * from home   where id =1672329600 ";
           } else {
             sqlCode = saveSqlCode;
           }
@@ -181,7 +183,7 @@ class HotViewModel extends ChangeNotifier with LoggerMixin {
           break;
         case 4:
           sqlCode =
-              "select * from home   where  id =1640793600  and  sava_status=1 ";
+              "select * from home   where  id =1672329600  and  sava_status=1 ";
           break;
       }
       print("select code ==$sqlCode");

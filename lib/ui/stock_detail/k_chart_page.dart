@@ -60,7 +60,7 @@ class KChartPageState extends ConsumerState<KChartPage> with LoggerMixin {
                           onPressed: () {
                             state.changeKLineType(0);
                             hotState.nextDetailSelect(
-                                "SELECT * FROM k${widget.ts} ");
+                                "SELECT * FROM k${widget.ts} order by id desc");
                           },
                           child: Text(
                             "日",

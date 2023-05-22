@@ -182,7 +182,7 @@ class ComparePageState extends ConsumerState<ComparePage> {
                     Row(
                       children: [
                         radioTitle(1),
-                        const Text("綜合損益表"),
+                        const Text("綜合損益項目"),
                       ],
                     ),
                     Row(

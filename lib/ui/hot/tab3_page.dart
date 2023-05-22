@@ -20,7 +20,7 @@ class Tab3PageState extends ConsumerState<Tab3Page> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       ref.read(hotViewModelProvider).hotData(
-          "select * from home   where id =1640793600   order by vo   limit 20",
+          "select distinct * from home   where id =1672329600   order by vo   limit 20",
           3);
     });
   }

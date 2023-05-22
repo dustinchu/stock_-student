@@ -41,7 +41,7 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
   int bodyType1 = 1, bodyType2 = 1, bodyType3 = 1;
   String sqlTableName = "ci",
       sqlTitleName = "nnor",
-      detailTitleName = "綜合損益表",
+      detailTitleName = "綜合損益項目",
       detailBodyName = "營業收入";
   List<Map<String, Object?>> dbResult1 = [];
   List<Map<String, Object?>> dbResult2 = [];
@@ -79,14 +79,14 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
       d.add(dColumn(
           "${dbResult1[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
       d.add(dColumn(
-          "${dbResult2[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
+          "${dbResult2[0]["ts"].toString()}\n${dbResult2[0]["name"].toString()}"));
     } else if (saveIndex == 3) {
       d.add(dColumn(
           "${dbResult1[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
       d.add(dColumn(
-          "${dbResult2[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
+          "${dbResult2[0]["ts"].toString()}\n${dbResult2[0]["name"].toString()}"));
       d.add(dColumn(
-          "${dbResult3[0]["ts"].toString()}\n${dbResult1[0]["name"].toString()}"));
+          "${dbResult3[0]["ts"].toString()}\n${dbResult3[0]["name"].toString()}"));
     }
 
     // for (Map<String, Object?> r in dbResult1) {
@@ -100,7 +100,7 @@ class CompareViewModel extends ChangeNotifier with LoggerMixin {
     titleType = i ?? 1;
     switch (i) {
       case 1:
-        detailTitleName = "綜合損益表";
+        detailTitleName = "綜合損益項目";
         detailBodyName = "營業收入";
         sqlTableName = "ci";
         sqlTitleName = "nnor";
